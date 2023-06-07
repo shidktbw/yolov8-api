@@ -1,6 +1,7 @@
 # yolov8-api
 
-![swe](https://github.com/shidktbw/yolov8-api/assets/112849918/531851d2-1fd9-465c-9b17-77f8f0b52e53)
+
+![d0](https://github.com/shidktbw/yolov8-api/assets/112849918/c2e915ad-be86-4ed4-bfe0-111b181a9e88)
 
 
 
