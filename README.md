@@ -1,6 +1,6 @@
 # yolov8-api
 
-![Снимок экрана 2023-06-07 173430](https://github.com/shidktbw/yolov8-api/assets/112849918/531851d2-1fd9-465c-9b17-77f8f0b52e53)
+![swe](https://github.com/shidktbw/yolov8-api/assets/112849918/531851d2-1fd9-465c-9b17-77f8f0b52e53)
 
 
 
