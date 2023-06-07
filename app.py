@@ -5,6 +5,7 @@ import time
 import random
 import glob
 
+
 app = Flask(__name__)
 model = YOLO("yolov8n.pt")
 
@@ -14,20 +15,34 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    # Получить загруженный файл из запроса
-    file = request.files['file']
-    # Создать случайное имя файла изображения
-    filename = str(random.randint(1, 1000000)) + ".jpg"
-    # Сохранить файл во временной директории с новым именем
-    file.save(os.path.join('temp', filename))
-    # Вызвать вашу нейросеть для обработки изображения
-    results = model.predict(source=os.path.join('temp', filename),save=True)
-    # Получить последнюю созданную папку
+    # Get the model file from the request
+    model_file = request.files['model']
+    # Get the uploaded file from the request
+    image_file = request.files['file']
+    
+    # Create a unique file name for the model
+    model_filename = "models/" + str(random.randint(1, 1000000)) + ".pt"
+    # Save the model file
+    model_file.save(model_filename)
+
+    # Create an instance of the YOLO model with the loaded model
+    model = YOLO(model_filename)
+    
+    # Create a random image file name
+    image_filename = str(random.randint(1, 1000000)) + ".jpg"
+    # Save the file to the temporary directory with the new name
+    image_file.save(os.path.join('temp', image_filename))
+    
+    # Call neural network to process the image
+    results = model.predict(source=os.path.join('temp', image_filename),save=True)
+    
+    # Get the latest created directory
     latest_dir = max(glob.glob('runs/detect/predict*'), key=os.path.getctime)
-    # Добавить задержку в 5 секунд
+    # Add a 5-second delay
     time.sleep(5)
-    # Вернуть результаты в HTML-страницу
-    return render_template('index.html', filename=filename, latest_dir=latest_dir)
+    # Return the results to the HTML page
+    return render_template('index.html', filename=image_filename, latest_dir=latest_dir)
+
 
 
 
